@@ -14,6 +14,8 @@ use App\Http\Controllers\UriController;
 // Backend
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ProductsController;
+use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Backend\CourseCategoryController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\CategorysController;
 use App\Http\Controllers\Backend\VendorsController;
@@ -106,13 +108,35 @@ Route::group(['prefix' => 'backend', 'as' => 'backend.', 'middleware' => ['auth'
 		Route::put('/update_variant_assets/{id}', [ProductsController::class, 'update_variant_assets'])->name('update_variant_assets');
 	});
 
+	//products routes
+	Route::group(['prefix' => 'courses', 'as' => 'courses.'], function ()
+	{
+		Route::get('/', [CourseController::class, 'index'])->name('list');
+		Route::get('/create', [CourseController::class, 'create'])->name('create');
+		Route::post('/store', [CourseController::class, 'store'])->name('store');
+		Route::get('/edit/{course}', [CourseController::class, 'edit'])->name('edit');
+		Route::put('/update/{course}', [CourseController::class, 'update'])->name('update');
+		Route::delete('/delete/{course}', [CourseController::class, 'delete'])->name('delete');
+	});
+
+	//products routes
+	Route::group(['prefix' => 'courses/categories', 'as' => 'courses.categories.'], function ()
+	{
+		Route::get('/', [CourseCategoryController::class, 'index'])->name('list');
+		Route::get('/create', [CourseCategoryController::class, 'create'])->name('create');
+		Route::post('/store', [CourseCategoryController::class, 'store'])->name('store');
+		Route::get('/edit/{courseCategory}', [CourseCategoryController::class, 'edit'])->name('edit');
+		Route::put('/update/{courseCategory}', [CourseCategoryController::class, 'update'])->name('update');
+		Route::get('/delete/{courseCategory}', [CourseCategoryController::class, 'destroy'])->name('delete');
+	});
+
 	//users routes
 	Route::group(['prefix' => 'users', 'as' => 'users.'], function ()
 	{
 		Route::get('/', [UsersController::class, 'index'])->name('list');
 		Route::get('/create', [UsersController::class, 'create'])->name('create');
 		Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('edit');
-		Route::put('/update/{product}', [UsersController::class, 'update'])->name('update');
+		Route::put('/update/{user}', [UsersController::class, 'update'])->name('update');
 		Route::post('/store', [UsersController::class, 'store'])->name('store');
 		Route::get('/get', [UsersController::class, 'get'])->name('get');
 	});

@@ -9,6 +9,13 @@ class Course extends Model
 {
     use HasFactory;
     /**
+     * Get category that owns the course
+     */
+    public function category(){
+        $this->belongsTo(CourseCategory::class, 'category_id');
+    }
+
+    /**
      * Get lesson associate with course
      */
     public function lessons(){

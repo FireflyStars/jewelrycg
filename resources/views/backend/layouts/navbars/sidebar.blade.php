@@ -76,6 +76,20 @@
                 </a>
               </div>
 
+              <span class="dropdown-header mt-4">{{ __("LMS") }}</span>
+              <!-- Collapse -->
+              <div class="nav-item">
+                <a class="nav-link nav-link-main dropdown-toggle " href="#navbarVerticalMenuAllCoursesMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAllCoursesMenu" aria-expanded="false" aria-controls="navbarVerticalMenuAllCoursesMenu">
+                  <i class="bi-book nav-icon"></i>
+                  <span class="nav-link-title">{{ __("Courses") }}</span>
+                </a>
+
+                <div id="navbarVerticalMenuAllCoursesMenu" class="nav-collapse collapse @if($activePage == 'courses') show @endif" data-bs-parent="#navbarVerticalMenuPagesMenu">
+                  <a class="nav-link @if($navName == 'allcourses') active @endif" href="{{ route('backend.courses.list') }}">{{ __("All Courses") }}</a>
+                  <a class="nav-link @if($navName == 'coursecategories') active @endif" href="{{ route('backend.courses.categories.list') }}">{{ __("Categories") }}</a>
+                </div>
+              </div>
+
               <span class="dropdown-header mt-4">{{ __("Commerce") }}</span>
 
               <!-- Collapse -->

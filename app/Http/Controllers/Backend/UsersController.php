@@ -107,8 +107,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        dd('d');
-        return view('backend.users.edit', [
+        return view('backend.profile.edit', [
             'user' => User::findOrFail($id)
         ]);
     }

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 
@@ -15,7 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return view('backend.courses.list', ['courses'=> $courses]);
     }
 
     /**
@@ -25,7 +28,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.courses.create', ['categories'=>CourseCategory::all()]);
     }
 
     /**
@@ -36,7 +39,12 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $course = new Course();
+        $course->name = $request->name;
+        $course->user_id = auth()->id();
+        $course->category_id = $request->category;
+        $course->save();
+        return redirect()->route('backend.courses.edit', $course->id);
     }
 
     /**
@@ -58,7 +66,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view('backend.courses.edit', ['course'=>$course, 'categories'=>CourseCategory::all()]);
     }
 
     /**
@@ -70,7 +78,10 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $course->name = $request->name;
+        $course->category_id = $request->category;
+        $course->save();
+        return redirect()->route('backend.courses.list');
     }
 
     /**
